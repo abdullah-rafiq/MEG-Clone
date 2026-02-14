@@ -1,0 +1,287 @@
+ion-card {
+  border-radius: 12px;
+}
+
+.square-light {
+  background-color: transparent;
+  transition: background-color 120ms ease;
+}
+
+.square-dark {
+  background-color: transparent;
+  transition: background-color 120ms ease;
+}
+
+button.square-light:hover,
+button.square-dark:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  z-index: 2; /* Ensure hover state is above pieces */
+}
+
+.chessboard {
+  border: 10px solid #2f2f2f;
+  border-radius: 16px;
+  background: #2f2f2f;
+  background-image: url('src/assets/board.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: relative;
+  z-index: 1;
+  touch-action: none;
+}
+
+/* Cursor UX during drag */
+.chessboard.dragging-cursor { cursor: grabbing; }
+.piece-svg { cursor: grab; }
+.piece-svg.dragging { cursor: grabbing; }
+
+.coord-label {
+  color: rgba(0, 0, 0, 0.75);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.45);
+  user-select: none;
+}
+
+button.square-dark .coord-label {
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+/* SVG pieces sizing and subtle depth */
+.piece-svg {
+  width: 90%;
+  height: auto;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
+  user-select: none;
+  -webkit-user-drag: none;
+  transform: scale(1.2);
+  transform-origin: center;
+}
+
+/* Original piece appearance while dragging (ghost effect) */
+.piece-svg.dragging {
+  opacity: 0.35;
+  transform: scale(0.98);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+  transition: opacity 80ms ease, transform 80ms ease;
+}
+
+/* Visual hint for current drop target during touch drag */
+.square-drop-target {
+  box-shadow: inset 0 0 0 3px rgba(59, 130, 246, 0.6);
+}
+
+/* Player bars (top: black, bottom: white) */
+.player-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* push clock to right edge */
+  padding: 6px 10px;
+  border-radius: 12px;
+  width: 100%;
+}
+
+.player-bar .player-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.player-bar .avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #4b5563;
+  /* gray-600 placeholder */
+}
+
+.player-bar .name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.player-bar.black {
+  background: #1f2937;
+  /* slate-800 */
+  color: #e5e7eb;
+  /* light text */
+}
+
+.player-bar.white {
+  background: #e5e7eb;
+  /* light bar */
+  color: #1f2937;
+  /* dark text */
+}
+
+/* tighten clock inside bar on small widths */
+.player-bar .clock {
+  box-shadow: none;
+  /* flatter inside bar */
+}
+
+/* Clocks */
+.clock {
+  font-variant-numeric: tabular-nums;
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 6px 12px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #111827;
+  /* default dark text */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+  /* never block board clicks */
+  position: relative;
+  z-index: 0;
+}
+
+.clock-black {
+  background: rgba(24, 24, 27, 0.92);
+  /* near-black */
+  color: #e5e7eb;
+  /* light gray text */
+}
+
+.clock-white {
+  background: rgba(229, 231, 235, 0.95);
+  /* light gray */
+  color: #1f2937;
+  /* dark slate text */
+}
+
+.clock.active {
+  outline: 3px solid #3b82f6;
+  /* blue-500 */
+}
+
+.clock.low {
+  color: #b91c1c;
+  /* red-700 */
+}
+
+/* Time preset buttons */
+button.preset {
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 9999px;
+  background: #f4f4f5;
+  /* zinc-100 */
+  color: #111827;
+  border: 1px solid #e5e7eb;
+}
+
+button.preset:hover {
+  background: #e5e7eb;
+  /* zinc-200 */
+}
+
+/* New time control picker */
+.tc-picker {
+  margin-top: 8px;
+  display: grid;
+  gap: 12px;
+}
+
+.tc-section {
+  display: grid;
+  gap: 8px;
+}
+
+.tc-title {
+  font-weight: 700;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.tc-pill {
+  appearance: none;
+  border: 1px solid #3a3a3a;
+  background: #1f1f1f;
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 8px 10px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease, border-width 120ms ease, box-shadow 120ms ease;
+}
+
+/* Small screens: slightly smaller clock */
+@media (max-width: 420px) {
+  .clock { font-size: 1.15rem; padding: 6px 10px; }
+}
+
+.tc-pill:hover {
+  background: #2a2a2a;
+}
+
+.tc-pill.active {
+  border-color: #83cc163f;
+  border-width: 3px;
+  box-shadow: 0 0 0 2px rgba(132, 204, 22, 0.25);
+}
+
+/* Light theme tuning (if app supports it) */
+:host-context(html:not(.dark)) .tc-title {
+  color: #ffffff;
+}
+
+:host-context(html:not(.dark)) .tc-pill {
+  border-color: #3a3a3a;
+  background: #1f1f1f;
+  color: #ffffff;
+}
+
+:host-context(html:not(.dark)) .tc-pill:hover {
+  background: #2a2a2a;
+}
+
+:host-context(html:not(.dark)) .tc-pill.active {
+  border-color: #5ccc6b;
+  border-width: 3px;
+  box-shadow: none;
+}
+
+.name-button {
+  background: none;
+  border: 0;
+  padding: 2px 4px;
+  font-weight: 600;
+  color: inherit;
+  cursor: text;
+}
+
+.name-button:hover {
+  text-decoration: underline;
+}
+
+.name-input {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px dashed currentColor;
+  outline: none;
+  padding: 2px 4px;
+  min-width: 8ch;
+  font-weight: 600;
+  color: inherit;
+}
+
+.confetti-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 30;
+}

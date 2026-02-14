@@ -1,0 +1,33 @@
+<app-splash *ngIf="showSplash"></app-splash>
+
+<ion-content *ngIf="!showSplash" [fullscreen]="true">
+  <div class="container ion-padding text-center">
+    <h1 class="text-3xl font-bold text-purple-600">
+      LETS PLAY CHESS ♟️
+    </h1>
+    <button class="cta" (click)="startGame()" [disabled]="loading">
+      <span class="span italic">Play Now</span>
+      <span class="second">
+        <svg width="50px" height="20px" viewBox="0 0 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
+            transform="translate(-.000000, -.000000)">
+            <path class="one"
+              d="M40.1543933,3.89485454 L43.9765045,0 L65.5016526,21.3696319 L43.9765045,42.7392638 L40.1526974,38.8429667 L57.5,21.3696319 L40.1543933,3.89485454 Z"
+              fill="#8F44FD"></path>
+            <path class="two"
+              d="M24.1543933,3.89485454 L27.9765045,0 L49.5016526,21.3696319 L27.9765045,42.7392638 L24.1526974,38.8429667 L41.5,21.3696319 L24.1543933,3.89485454 Z"
+              fill="#8F44FD"></path>
+            <path class="three"
+              d="M8.15439334,3.89485454 L11.9765045,0 L33.5016526,21.3696319 L11.9765045,42.7392638 L8.15269744,38.8429667 L25.5,21.3696319 L8.15439334,3.89485454 Z"
+              fill="#8F44FD"></path>
+          </g>
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div *ngIf="loading" class="loading-overlay">
+    <div class="chess-loader" [style.background-image]="'url(' + pieces[currentPieceIndex] + ')'"></div>
+    <p class="quote-text">{{ currentQuote }}</p>
+  </div>
+</ion-content>
